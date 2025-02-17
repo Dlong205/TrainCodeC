@@ -70,11 +70,11 @@ void timGT(int a[], int b[], int n, int trung, int dem) {
 }
 
 void xoaTheoViTri(int a[], int *n, int vi_tri) {
-    if (vi_tri < 0 || vi_tri >= *n) return; // Kiểm tra vị trí hợp lệ
+    if (vi_tri < 0 || vi_tri >= *n) return;
     for (int i = vi_tri; i < *n - 1; i++) {
         a[i] = a[i + 1];
     }
-    (*n)--; // Giảm kích thước mảng đi 1
+    (*n)--;
 }
 
 void xoaTheoGiaTri(int a[], int *n) {
@@ -86,7 +86,7 @@ void xoaTheoGiaTri(int a[], int *n) {
         if (a[i] == trung) {
             xoaTheoViTri(a, n, i);
             i--; // Kiểm tra lại vị trí hiện tại sau khi xóa
-            found = 1; // Đánh dấu đã tìm thấy và xóa
+            found = 1;
         }
     }
     if (!found) {
@@ -95,39 +95,23 @@ void xoaTheoGiaTri(int a[], int *n) {
 }
 void chenPhanTu(int a[], int *n) {
     int vi_tri, so_pt_chen;
-
-    // Nhập số lượng phần tử cần chèn
     printf("Nhap so phan tu muon chen: ");
     scanf("%d", &so_pt_chen);
-
-    // Nhập vị trí chèn
     printf("Nhap vi tri muon chen phan tu (0 <= vi_tri <= %d): ", *n);
     scanf("%d", &vi_tri);
-
-    // Kiểm tra vị trí chèn có hợp lệ không
     if (vi_tri < 0 || vi_tri > *n) {
         printf("Vi tri chen khong hop le.\n");
         return;
     }
-
-    // Nhập các phần tử cần chèn
     for (int i = 0; i < so_pt_chen; i++) {
         int gia_tri;
         printf("Nhap phan tu thu %d: ", i + 1);
         scanf("%d", &gia_tri);
-
-        // Dịch chuyển các phần tử từ vị trí chèn trở đi
         for (int j = *n; j > vi_tri; j--) {
             a[j] = a[j - 1];
         }
-
-        // Chèn phần tử mới vào vị trí
         a[vi_tri] = gia_tri;
-
-        // Tăng kích thước mảng
         (*n)++;
-
-        //Tăng vị trí để chèn kí tự tiếp
         vi_tri++;
     }
 }
