@@ -1,0 +1,95 @@
+File mylib.h (header file)
+
+#ifndef MYLIB_H
+#define MYLIB_H
+
+void menu();
+void nhapMang(int a[], int *n);
+void xuatMang(int a[], int n);
+void tangDan(int a[], int n, int tam);
+void giamDan(int a[], int n, int tam);
+void timGT(int a[], int b[], int n, int trung, int dem);
+void xoaTheoGiaTri(int a[], int *n);
+void chenPhanTu(int a[], int *n);
+void daoNguocDay(int a[], int n);
+
+#endif
+
+File mylib.c (implementation file)
+
+#include <stdio.h>
+#include "mylib.h"
+
+// Cài đặt các hàm đã khai báo trong mylib.h
+void menu() {
+    printf("Menu here\n");
+}
+
+void nhapMang(int a[], int *n) {
+    printf("Nhap so phan tu: ");
+    scanf("%d", n);
+    for (int i = 0; i < *n; i++) {
+        printf("a[%d] = ", i);
+        scanf("%d", &a[i]);
+    }
+}
+
+void xuatMang(int a[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf("%d ", a[i]);
+    }
+    printf("\n");
+}
+
+// (Viết tiếp các hàm khác...)
+
+📌 2. Biên dịch mylib.c thành file object (.o)
+
+Chạy lệnh sau:
+
+gcc -c mylib.c -o mylib.o
+
+Lệnh này tạo file mylib.o chứa mã máy của thư viện.
+📌 3. Tạo thư viện tĩnh (libmylib.a)
+
+Chạy lệnh sau:
+
+ar rcs libmylib.a mylib.o
+
+Lệnh này tạo thư viện libmylib.a từ mylib.o.
+📌 4. Dùng thư viện tĩnh trong chương trình main.c
+
+File main.c
+
+#include <stdio.h>
+#include "mylib.h"
+
+int main() {
+    int arr[100], n;
+    nhapMang(arr, &n);
+    xuatMang(arr, n);
+    return 0;
+}
+
+📌 5. Biên dịch main.c với thư viện tĩnh
+
+Chạy lệnh sau:
+
+gcc main.c -o main.out -L. -lmylib
+
+Giải thích:
+
+    -L.: Chỉ đường dẫn đến thư viện (. là thư mục hiện tại)
+    -lmylib: Link thư viện libmylib.a (bỏ lib và .a khi dùng -l)
+
+📌 6. Chạy chương trình
+
+./main.out
+
+💡 Lưu ý quan trọng: Nếu gặp lỗi "undefined reference", kiểm tra:
+
+    File mylib.o và libmylib.a có được tạo chưa (ls để kiểm tra).
+    Khi biên dịch, có -L. và -lmylib không.
+    mylib.h có khai báo đầy đủ các hàm không.
+
+
